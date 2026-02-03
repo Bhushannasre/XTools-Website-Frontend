@@ -2,6 +2,7 @@
 import { NavLink } from "react-router-dom";
 import { AiOutlineHome } from "react-icons/ai";
 import { FiUser, FiBriefcase, FiMail } from "react-icons/fi";
+import { Link } from "react-router-dom";
 import '../index.css';
 
 
@@ -39,11 +40,13 @@ function Navbar() {
         </ul>
 
         {/* CTA */}
-         <div className="rainbow relative z-0 bg-white/15 overflow-hidden p-0.5 flex items-center justify-center rounded-full hover:scale-105 transition duration-300 active:scale-100">
+        <Link to="/login">
+          <div className="rainbow relative z-0 bg-white/15 overflow-hidden p-0.5 flex items-center justify-center rounded-full hover:scale-105 transition duration-300 active:scale-100"> 
                 <button className="px-8 text-sm py-3 text-white rounded-full font-medium bg-gray-900/80 backdrop-blur cursor-pointer">
                     Sign Up
                 </button>
-            </div>
+            </div></Link>
+       
 
       </div>
     </nav>

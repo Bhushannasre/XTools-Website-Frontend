@@ -1,5 +1,9 @@
-export const ButtonFeature = () => {
-    return (
+import { Link } from "react-router-dom";
+
+export const ButtonFeature = ({ productId }) => {
+
+ 
+    return (            
         <>
             <style>{`
                 @keyframes rotate {
@@ -25,9 +29,11 @@ export const ButtonFeature = () => {
                 }
             `}</style>
             <div className="rainbow absolute  overflow-hidden p-0.5 flex items-center justify-center rounded-full hover:scale-105 transition duration-300 active:scale-100 ">
+             <Link to={`/product/${productId}`}>
                 <button className="px-8 text-sm py-3 text-white rounded-full font-medium bg-gray-900/80 backdrop-blur">
                     Explore Plugin
                 </button>
+             </Link>  
             </div>
         </>
     );

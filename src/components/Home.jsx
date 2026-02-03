@@ -2,7 +2,7 @@ import './home.css';
 import { xData } from "../utils/Data";
 import { cardsData } from "../utils/cardData";
 import { ButtonFeature } from './buttonfeature';
-
+import SubscriptionNewletter from './SubscriptionNewletter';
 import Brands from './Brands';  
 
 function Home() {
@@ -59,7 +59,7 @@ function Home() {
      <div className='fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none mb-10 size-140  rounded-full blur-[200px]'></div>
   <section className="relative z-10 flex flex-col md:flex-row pb-20 items-center justify-between mt-30 px-4 md:px-16 lg:px-24 xl:px-32 text-white box">
     <div className="max-w-xl text-center md:text-left">
-      <h1 className="text-5xl md:text-6xl font-medium ">
+      <h1 className="text-5xl md:text-6xl font-medium from-white to-[#00c2cb] bg-clip-text text-transparent bg-linear-to-r">
         Plug and Play with X2LS.
       </h1>
        <div className="flex items-center divide-x divide-gray-300 mt-6">
@@ -165,7 +165,7 @@ function Home() {
                         <h1 className="text-3xl">{xData[0].title}</h1>
                         <p className="text-sm">{xData[0].description}</p>
                        <div className="mt-3" >
-                        <ButtonFeature onClick/>
+                        <ButtonFeature productId={xData[0].id} />
                          </div>
                        
                     </div>
@@ -179,22 +179,13 @@ function Home() {
                         <h1 className="text-3xl">{xData[1].title}</h1>
                         <p className="text-sm">{xData[1].description}</p>
                         <div className="mt-3">
-                          <ButtonFeature />
+                          <ButtonFeature productId={xData[1].id} />
                          </div>
             
                     </div>
                 </div>
             </div>
-             <section className="flex flex-col items-center text-white mt-10">
-            <div className="flex flex-col items-center">
-                <h2 className="text-center text-4xl font-semibold max-w-2xl  ">Subscribe <span className="bg-gradient-to-t from-red-600 to-black p-1 bg-left inline-block bg-no-repeat">newsletter</span></h2>
-                <p className="text-center text-slate-400 max-w-lg mt-3">Stay updated with our latest news and releases related to x2LS.com.</p>
-            </div>
-            <div className="flex items-center justify-center mt-10 border border[#202829] focus-within:outline focus-within:outline-indigo-600 text-sm rounded-full h-14 max-w-xl w-full">
-                <input className="bg-transparent outline-none rounded-full px-4 h-full flex-1 placeholder:text-slate-400" placeholder="Enter your email address" type="text" />
-                <button className="bg-[#00c2cb] text-black rounded-full h-11 mr-1 px-10 flex items-center justify-center hover:bg-gray-300 active:scale-95 transition">Subscribe</button>
-            </div>
-        </section>
+            <SubscriptionNewletter />
         </div>
             </div>
             

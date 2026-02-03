@@ -1,14 +1,24 @@
+import { useState } from "react";
+import './service.css';
 function Services(){
+       const [openIndex, setOpenIndex] = useState(null);
+    const faqs = [
+        {
+            question: "What is XTools?",
+            answer: "XTools are music plugins which are designed to enhance your music production workflow and provide professional-grade tools for musicians and producers."
+        },
+        {
+            question: "How do I get started?",
+            answer: "You can get started by downloading the plugin and following the setup instructions in our documentation."
+        },
+        {
+            question: "Is there a free trial available?",
+            answer: "Yes, we offer a free trial for new users to explore our features."
+        }
+    ];
     return(
-<>
-
-  <style>{`
-                @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-            
-                * {
-                    font-family: 'Poppins', sans-serif;
-                }
-            `}</style>
+<div className="bg-black text-white  px-4 relative overflow-hidden">
+  
            {/* SVG BACKGROUND */}
   <svg
     className="absolute inset-0 z-0"
@@ -18,8 +28,30 @@ function Services(){
     <circle cx="1372.48" cy="618.205" r="308.334" stroke="#FF5722" strokeOpacity=".7" />
     <circle cx="16.942" cy="20.834" r="308.334" stroke="#299253" strokeOpacity=".7" />
   </svg>
-
-            
+               {/* FAQS */}
+              
+             <div className="max-w-xl mx-auto flex flex-col items-center justify-center px-4 md:px-0 py-20 relative z-10 ">
+                <p className="text-indigo-600 text-sm font-medium">FAQ's</p>
+                <h1 className="text-3xl font-semibold text-center">Looking for answer?</h1>
+                <p className="text-sm text-slate-500 mt-2 pb-8 text-center">
+                    We are a Music Plugin company dedicated to providing high-quality audio tools for musicians and producers.
+                </p>
+                {faqs.map((faq, index) => (
+                    <div className="border-b border-slate-200 py-4 cursor-pointer w-full" key={index} onClick={() => setOpenIndex(openIndex === index ? null : index)}>
+                        <div className="flex items-center justify-between">
+                            <h3 className="text-base font-medium">
+                                {faq.question}
+                            </h3>
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" className={`${openIndex === index ? "rotate-180" : ""} transition-all duration-500 ease-in-out`}>
+                                <path d="m4.5 7.2 3.793 3.793a1 1 0 0 0 1.414 0L13.5 7.2" stroke="#1D293D" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </div>
+                        <p className={`text-sm text-slate-500 transition-all duration-500 ease-in-out max-w-md ${openIndex === index ? "opacity-100 max-h-[300px] translate-y-0 pt-4" : "opacity-0 max-h-0 -translate-y-2"}`} >
+                            {faq.answer}
+                        </p>
+                    </div>
+                ))}
+            </div>
             <div className="flex flex-col md:flex-row items-center bg-black">
                 <img className="max-w-2xl w-full" src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/features/card-image-1.png" alt="" />
                 <div className="space-y-10 px-4 md:px-0">
@@ -31,7 +63,7 @@ function Services(){
                         </div>
                         <div className="space-y-2">
                             <h3 className="text-base font-semibold text-violet-700">Real-Time Analytics</h3>
-                            <p className="text-sm text-slate-600">Get instant insights into your finances with live dashboards.</p>
+                            <p className="text-sm text-slate-600">Track your music production progress in real-time with detailed analytics and insights.</p>
                         </div>
                     </div>
                     <div className="flex items-center justify-center gap-6 max-w-md">
@@ -42,7 +74,7 @@ function Services(){
                             </svg>
                         </div>
                         <div className="space-y-2">
-                            <h3 className="text-base font-semibold text-green-700">Bank-Grade Security</h3>
+                            <h3 className="text-base font-semibold text-green-700">Security </h3>
                             <p className="text-sm text-slate-600">End-to-end encryption, 2FA, compliance with GDPR standards.</p>
                         </div>
                     </div>
@@ -54,13 +86,13 @@ function Services(){
                             </svg>
                         </div>
                         <div className="space-y-2">
-                            <h3 className="text-base font-semibold text-red-700">Customizable Reports</h3>
-                            <p className="text-sm text-slate-600">Export professional, audit-ready financial reports for tax or internal review.</p>
+                            <h3 className="text-base font-semibold text-red-700">Plugin Integration</h3>
+                            <p className="text-sm text-slate-600">Seamlessly integrate with popular DAWs and audio software for enhanced workflow.</p>
                         </div>
                     </div>
                 </div>
             </div>
-</>
+</div>
     )       
 
 }
