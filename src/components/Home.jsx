@@ -1,7 +1,7 @@
 import './home.css';
 import { xData } from "../utils/Data";
 import { cardsData } from "../utils/cardData";
-import { ButtonFeature } from './buttonfeature';
+import { ButtonFeature } from './ButtonFeature';
 import SubscriptionNewletter from './SubscriptionNewletter';
 import Brands from './Brands';  
 
@@ -96,7 +96,7 @@ function Home() {
       </p>
 
       <div className="flex gap-4 mt-8 justify-center md:justify-start">
-        <button className="bg-white text-black px-7 h-11 rounded-md cursor-pointer">
+        <button className="bg-white text-black px-7 h-11 rounded-md cursor-pointer" src="/products">
           Get started
         </button>
         <button className="border border-slate-600 px-6 h-11 rounded-md cursor-pointer">
@@ -107,7 +107,7 @@ function Home() {
     </div>
 
     <img
-      src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/hero/hero-section-showcase-3.png"
+      src="/musictools.jpg"
       alt="hero"
       className="max-w-xs sm:max-w-sm lg:max-w-md mt-10 md:mt-0"
     />
