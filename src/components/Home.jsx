@@ -1,14 +1,47 @@
+import { useEffect, useRef } from 'react';
 import './home.css';
 import { xData } from "../utils/Data";
 import { cardsData } from "../utils/cardData";
 import { ButtonFeature } from './ButtonFeature';
 import SubscriptionNewletter from './SubscriptionNewletter';
-import Brands from './Brands';  
+import Brands from './Brands';
+
+// Scroll reveal hook — same as About.jsx
+function useScrollReveal() {
+    const ref = useRef(null);
+    useEffect(() => {
+        const el = ref.current;
+        if (!el) return;
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    el.classList.add('visible');
+                    observer.unobserve(el);
+                }
+            },
+            { threshold: 0.15 }
+        );
+        observer.observe(el);
+        return () => observer.disconnect();
+    }, []);
+    return ref;
+}
 
 function Home() {
-    
+    // Scroll reveal refs — hero section has NO ref (animates on load via .box)
+    const testimonialsHeadRef  = useScrollReveal();
+    const testimonialsDescRef  = useScrollReveal();
+    const marquee1Ref          = useScrollReveal();
+    const marquee2Ref          = useScrollReveal();
+    const creationsHeadRef     = useScrollReveal();
+    const creationsDescRef     = useScrollReveal();
+    const productsRef          = useScrollReveal();
+    const newsletterRef        = useScrollReveal();
 
-  
+    const scrolltoProducts = () => {
+        document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+    };
+
     const CreateCard = ({ card }) => (
         <div className="p-4 rounded-lg mx-4 shadow hover:shadow-lg transition-all duration-200 w-72 shrink-0 bg-[#202829]">
             <div className="flex gap-2">
@@ -23,8 +56,7 @@ function Home() {
                     <span className="text-xs text-slate-500 text-white">{card.handle}</span>
                 </div>
             </div>
-            <p className="text-sm py-4 text-gray-800 text-white">Radiant made undercutting all of our competitors an absolute
-                breeze.</p>
+            <p className="text-sm py-4 text-gray-800 text-white">Radiant made undercutting all of our competitors an absolute breeze.</p>
             <div className="flex items-center justify-between text-slate-500 text-xs">
                 <div className="flex items-center gap-1">
                     <span>Posted on</span>
@@ -40,88 +72,67 @@ function Home() {
     );
 
     return (
-     
-       <div className="relative overflow-hidden bg-black ">
-  {/* SVG BACKGROUND */}
-  <svg
-    className="absolute inset-0 z-0"
-    viewBox="0 0 1440 720"
-    fill="none"
-  >
-    <path stroke="#28834c" strokeOpacity=".7" d="M-15.227 702.342H1439.7" />
-    <circle cx="711.819" cy="372.562" r="308.334" stroke=" #00c2cb" strokeOpacity=".7" />
-     <circle cx="1372.48" cy="618.205" r="308.334" stroke="#FF5722" strokeOpacity=".7" />
-    <circle cx="16.942" cy="20.834" r="308.334" stroke="#bcef14ed" strokeOpacity=".7" />
+        <div className="relative overflow-hidden bg-black">
+            {/* SVG BACKGROUND */}
+            <svg className="absolute inset-0 z-0" viewBox="0 0 1440 720" fill="none">
+                <path stroke="#28834c" strokeOpacity=".7" d="M-15.227 702.342H1439.7" />
+                <circle cx="711.819" cy="372.562" r="308.334" stroke="#00c2cb" strokeOpacity=".7" />
+                <circle cx="1372.48" cy="618.205" r="308.334" stroke="#FF5722" strokeOpacity=".7" />
+                <circle cx="16.942" cy="20.834" r="308.334" stroke="#bcef14ed" strokeOpacity=".7" />
+            </svg>
 
-  </svg>
+            <div className='fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none mb-10 size-140 rounded-full blur-[200px]'></div>
 
-  {/* CONTENT */}
-     <div className='fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none mb-10 size-140  rounded-full blur-[200px]'></div>
-  <section className="relative z-10 flex flex-col md:flex-row pb-20 items-center justify-between mt-30 px-4 md:px-16 lg:px-24 xl:px-32 text-white box">
-    <div className="max-w-xl text-center md:text-left">
-      <h1 className="text-5xl md:text-6xl font-medium from-white to-[#00c2cb] bg-clip-text text-transparent bg-linear-to-r">
-        Plug and Play with X2LS.
-      </h1>
-       <div className="flex items-center divide-x divide-gray-300 mt-6">
-            <div className="flex -space-x-3 pr-3">
-                <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200" alt="image" className="w-12 h-12 rounded-full border-2 border-white hover:-translate-y-1 transition z-1 hover:z-10" />
-                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200" alt="image" className="w-12 h-12 rounded-full border-2 border-white hover:-translate-y-1 transition z-2 hover:z-10" />
-                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&h=200&auto=format&fit=crop" alt="image" className="w-12 h-12 rounded-full border-2 border-white hover:-translate-y-1 transition z-3 hover:z-10" />
-                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="image" className="w-12 h-12 rounded-full border-2 border-white hover:-translate-y-1 transition z-4 hover:z-10" />
-            </div>
-            <div className="pl-3">
-                <div className="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/>
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/>
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/>
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/>
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/>
-                    </svg>
-                    <p className="text-gray-600 font-medium ml-2">5.0</p>
+            {/* ── HERO — animates on load via .box class ── */}
+            <section className="relative z-10 flex flex-col md:flex-row pb-20 items-center justify-between mt-30 px-4 md:px-16 lg:px-24 xl:px-32 text-white box">
+                <div className="max-w-xl text-center md:text-left">
+                    <h1 className="text-5xl md:text-6xl font-medium from-white to-[#00c2cb] bg-clip-text text-transparent bg-linear-to-r">
+                        Plug and Play with X2LS.
+                    </h1>
+                    <div className="flex items-center divide-x divide-gray-300 mt-6">
+                        <div className="flex -space-x-3 pr-3">
+                            <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200" alt="image" className="w-12 h-12 rounded-full border-2 border-white hover:-translate-y-1 transition z-1 hover:z-10" />
+                            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200" alt="image" className="w-12 h-12 rounded-full border-2 border-white hover:-translate-y-1 transition z-2 hover:z-10" />
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&h=200&auto=format&fit=crop" alt="image" className="w-12 h-12 rounded-full border-2 border-white hover:-translate-y-1 transition z-3 hover:z-10" />
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="image" className="w-12 h-12 rounded-full border-2 border-white hover:-translate-y-1 transition z-4 hover:z-10" />
+                        </div>
+                        <div className="pl-3">
+                            <div className="flex items-center">
+                                {[...Array(5)].map((_, i) => (
+                                    <svg key={i} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#FACC15" stroke="#FACC15" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/>
+                                    </svg>
+                                ))}
+                                <p className="text-gray-600 font-medium ml-2">5.0</p>
+                            </div>
+                            <p className="text-sm text-gray-500">Trusted by <span className="font-medium text-green-300">100,000+</span> users</p>
+                        </div>
+                    </div>
+                    <p className="text-sm text-slate-200 mt-4">
+                        Unlock smarter Music AI Integrated Music Plugins to make your music creation process more efficient and enjoyable.
+                    </p>
+                    <div className="flex gap-4 mt-8 justify-center md:justify-start">
+                        <button onClick={scrolltoProducts} className="bg-white text-black px-7 h-11 rounded-md cursor-pointer">
+                            Get started
+                        </button>
+                    </div>
+                    <Brands />
                 </div>
-                <p className="text-sm text-gray-500">Trusted by <span className="font-medium text-green-300">100,000+</span> users</p>
-            </div>
-        </div>
-      <p className="text-sm text-slate-200 mt-4">
-        Unlock smarter Music AI Integrated Music Plugins to make your music creation process more efficient and enjoyable.
-      </p>
+                <img src="/musictools.jpg" alt="hero" className="max-w-xs sm:max-w-sm lg:max-w-md mt-10 md:mt-0" />
+            </section>
 
-      <div className="flex gap-4 mt-8 justify-center md:justify-start">
-        <button className="bg-white text-black px-7 h-11 rounded-md cursor-pointer" src="/products">
-          Get started
-        </button>
-        <button className="border border-slate-600 px-6 h-11 rounded-md cursor-pointer">
-          Watch demo
-        </button>
-      </div>
-     <Brands />
-    </div>
+            {/* ── TESTIMONIALS — scroll triggered ── */}
+            <div className="flex flex-col gap-8 pb-20 mt-20 px-4 md:px-16 lg:px-24 xl:px-32">
+                <h1 ref={testimonialsHeadRef} className="reveal text-3xl font-semibold text-center mx-auto text-white">
+                    Testimonials on X
+                </h1>
+                <p ref={testimonialsDescRef} className="reveal text-sm text-slate-400 text-center mt-2 max-w-lg mx-auto">
+                    Hear what our satisfied users have to say about their experiences with our products and services.
+                </p>
 
-    <img
-      src="/musictools.jpg"
-      alt="hero"
-      className="max-w-xs sm:max-w-sm lg:max-w-md mt-10 md:mt-0"
-    />
-
-{/* Testionials on X */}
-      </section>
-        <div className="flex flex-col gap-8 pb-20">         
-                  <h1 className="text-3xl font-semibold text-center mx-auto text-white heading animate">Testimonials on X</h1>
-            <p className="text-sm text-slate-400 text-center mt-2 max-w-lg mx-auto">Hear what our satisfied users have to say about their experiences with our products and services.
-               </p>
-            
-                <div className="marquee-row w-full mx-auto max-w-5xl overflow-hidden relative ">
+                <div ref={marquee1Ref} className="reveal marquee-row w-full mx-auto max-w-5xl overflow-hidden relative">
                     <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-gradient-to-r from-black to-transparent"></div>
-                    <div className="marquee-inner flex transform-gpu min-w-[200%] pt-10 pb-5  text-[#00c2cb]">
+                    <div className="marquee-inner flex transform-gpu min-w-[200%] pt-10 pb-5 text-[#00c2cb]">
                         {[...cardsData, ...cardsData].map((card, index) => (
                             <CreateCard key={index} card={card} />
                         ))}
@@ -129,9 +140,9 @@ function Home() {
                     <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none bg-gradient-to-l from-black to-transparent"></div>
                 </div>
 
-                <div className="marquee-row w-full mx-auto max-w-5xl overflow-hidden relative">
+                <div ref={marquee2Ref} className="reveal marquee-row w-full mx-auto max-w-5xl overflow-hidden relative">
                     <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-gradient-to-r from-black to-transparent"></div>
-                    <div className="marquee-inner marquee-reverse flex transform-gpu min-w-[200%] pt-10 pb-5  text-[#00c2cb]">
+                    <div className="marquee-inner marquee-reverse flex transform-gpu min-w-[200%] pt-10 pb-5 text-[#00c2cb]">
                         {[...cardsData, ...cardsData].map((card, index) => (
                             <CreateCard key={index} card={card} />
                         ))}
@@ -139,60 +150,53 @@ function Home() {
                     <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none bg-gradient-to-l from-black to-transparent"></div>
                 </div>
             </div>
-            < div className="bg-black py-20">
-            <style>{`
-                @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-            
-                * {
-                    font-family: 'Poppins', sans-serif;
-                }
-            `}</style>
 
-            {/* About Product */}
-            <h1 className="text-3xl font-semibold text-center mx-auto text-white heading animate">Our Latest Creations</h1>
-            <p className="text-sm text-slate-400 text-center mt-2 max-w-lg mx-auto ">A visual collection of our most recent works -
-                each piece crafted with intention, emotion, and style.</p>
-            
-            <div className="flex items-center gap-6 h-[400px] w-full max-w-5xl mt-10 mx-auto">
-    
-                <div className="relative group flex-grow transition-all w-56 h-[400px] duration-500 hover:w-full">
-                    <img className="h-full w-full object-cover object-right"
-                        src={xData[0].image}
-                        alt="image" />
-                        
-                    <div
-                        className="absolute inset-0 flex flex-col justify-center p-10 text-white bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                        <h1 className="text-3xl">{xData[0].title}</h1>
-                        <p className="text-sm">{xData[0].description}</p>
-                       <div className="mt-3" >
-                        <ButtonFeature productId={xData[0].id} />
-                         </div>
-                       
+            {/* ── LATEST CREATIONS — scroll triggered ── */}
+            <div className="bg-black  ">
+                <div className="bg-black pt-14 sm:pt-20 px-4 sm:px-8">
+                    <h1 ref={creationsHeadRef} className="reveal text-2xl sm:text-3xl font-semibold text-center mx-auto text-white">
+                        Our Latest Creations
+                    </h1>
+                    <p ref={creationsDescRef} className="reveal text-sm text-slate-400 text-center mt-2 max-w-lg mx-auto">
+                        A visual collection of our most recent works – each piece crafted with intention, emotion, and style.
+                    </p>
+
+                    <div ref={productsRef} id="products" className="reveal flex flex-col md:flex-row gap-3 md:gap-0 mt-8 sm:mt-10 w-full max-w-5xl mx-auto md:h-[400px]">
+                        {[xData[0], xData[1]].map((item, i) => (
+                            <div
+                                key={i}
+                                className="relative group overflow-hidden w-full rounded-xl md:rounded-none h-52 sm:h-64 md:h-full md:w-56 md:flex-grow md:transition-all md:duration-500 md:hover:flex-grow-[3]"
+                            >
+                                <img
+                                    className="h-full w-full m-5 object-cover transition-transform duration-500 group-hover:scale-105"
+                                    style={{ objectPosition: i === 0 ? 'right' : 'center' }}
+                                    src={item.image}
+                                    alt={item.title}
+                                />
+                                <div className="md:hidden absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent flex flex-col justify-end p-4">
+                                    <div className="relative h-12 w-44">
+                                        <ButtonFeature productId={item.id} />
+                                    </div>
+                                </div>
+                                <div className="hidden md:flex absolute inset-0 flex-col justify-center p-10 text-white bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                    <h2 className="text-3xl font-medium">{item.title}</h2>
+                                    <p className="text-sm mt-2 line-clamp-4">{item.description}</p>
+                                    <div className="mt-4 relative h-12 w-44">
+                                        <ButtonFeature productId={item.id} />
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
-                <div className="relative group flex-grow transition-all w-56 h-[400px] duration-500 hover:w-full">
-                    <img className="h-full w-full object-cover object-center"
-                        src={xData[1].image}
-                        alt="image" />
-                    <div
-                        className="absolute inset-0 flex flex-col justify-center p-10 text-white bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                        <h1 className="text-3xl">{xData[1].title}</h1>
-                        <p className="text-sm">{xData[1].description}</p>
-                        <div className="mt-3">
-                          <ButtonFeature productId={xData[1].id} />
-                         </div>
-            
-                    </div>
+
+                {/* ── NEWSLETTER — scroll triggered ── */}
+                <div ref={newsletterRef} className="reveal mt-20 px-4 sm:px-8 py-14 rounded-lg max-w-2xl mx-auto">
+                    <SubscriptionNewletter />
                 </div>
             </div>
-            <SubscriptionNewletter />
         </div>
-            </div>
-            
-            
-            
-        
-
-    )
+    );
 }
-    export default Home;
+
+export default Home;

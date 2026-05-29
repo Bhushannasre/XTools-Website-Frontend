@@ -1,6 +1,6 @@
  function Brands() {
     return (
-        < div className="mr-60 mt-14 mb-10">
+        < div className="mt-8 mb-6 w-full">
             
             <div className="flex flex-wrap items-center justify-center gap-12 mt-14 max-md:px-2">
             <svg width="60" height="32" viewBox="0 0 90 32" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+const BASE_URL = import.meta.env.VITE_API_URL || "";
+
 function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState(null); // 'success' | 'error' | 'loading'
@@ -10,10 +12,18 @@ function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // ✅ Check if user is logged in
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setStatus({ type: 'error', message: '🔒 Please sign in to submit this form.' });
+      return;
+    }
+
     setStatus('loading');
 
     try {
-      const res = await fetch('http://localhost:5000/api/contact', {
+      const res = await fetch(`${BASE_URL}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -25,19 +35,16 @@ function Contact() {
         setStatus({ type: 'error', message: data.error || 'Something went wrong' });
       } else {
         setStatus({ type: 'success', message: 'Message sent successfully! 🎉' });
-        setFormData({ name: '', email: '', message: '' }); // reset form
+        setFormData({ name: '', email: '', message: '' });
       }
-    } catch (err) {
+    } catch  {
       setStatus({ type: 'error', message: 'Server unreachable. Please try again later.' });
     }
   };
 
   return (
     <>
-      <style>{`
-        @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-        * { font-family: "Poppins", sans-serif; }
-      `}</style>
+     
 
       <section className='relative bg-black flex flex-col md:flex-row justify-center px-4 py-20 gap-20'>
         {/* SVG BACKGROUND */}
@@ -118,7 +125,9 @@ function Contact() {
 
             <div className='flex items-center justify-between'>
               <p className='text-xs md:text-sm text-white/60 max-w-3xs'>
-                By submitting, you agree to our <span className='text-white'>Terms</span> and <span className='text-white'>Privacy Policy</span>.
+                By submitting, you agree to our{' '}
+                <span className='text-white'>Terms</span> and{' '}
+                <span className='text-white'>Privacy Policy</span>.
               </p>
               <button
                 type="submit"

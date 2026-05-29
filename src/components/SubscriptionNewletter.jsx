@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+const BASE_URL = import.meta.env.VITE_API_URL || "";
+
 function SubscriptionNewletter() {
     const [email, setEmail] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -11,6 +13,13 @@ function SubscriptionNewletter() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // ✅ Check if user is logged in
+        const token = localStorage.getItem("token");
+        if (!token) {
+            setMessage({ type: 'error', text: '🔒 Please sign in to subscribe.' });
+            return;
+        }
+
         if (!email) {
             setMessage({ type: 'error', text: 'Email is required' });
             return;
@@ -19,7 +28,7 @@ function SubscriptionNewletter() {
         try {
             setIsSubmitting(true);
 
-            const response = await fetch('http://localhost:5000/api/subscribe', {
+            const response = await fetch(`${BASE_URL}/api/subscribe`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -42,12 +51,12 @@ function SubscriptionNewletter() {
                 text: data.message || 'Subscribed successfully!',
             });
 
-            setEmail(''); // ✅ reset input
+            setEmail('');
 
-        } catch (err) {
+        } catch  {
             setMessage({
                 type: 'error',
-                text: 'Something went wrong',
+                text: 'Something went wrong. Please try again later.',
             });
         } finally {
             setIsSubmitting(false);
@@ -65,7 +74,6 @@ function SubscriptionNewletter() {
                 </p>
             </div>
 
-            {/* ✅ FORM START */}
             <form
                 onSubmit={handleSubmit}
                 className="flex items-center justify-center mt-10 border border-[#202829] focus-within:outline focus-within:outline-indigo-600 text-sm rounded-full h-14 max-w-xl w-full"
@@ -81,16 +89,15 @@ function SubscriptionNewletter() {
 
                 <button
                     type="submit"
-                    className="bg-[#00c2cb] text-black rounded-full h-11 mr-1 px-10 flex items-center justify-center hover:bg-gray-300 active:scale-95 transition"
+                    className="bg-[#00c2cb] text-black rounded-full h-11 mr-1 px-10 flex items-center justify-center hover:bg-gray-300 active:scale-95 transition disabled:opacity-50 disabled:cursor-not-allowed"
                     disabled={isSubmitting}
                 >
                     {isSubmitting ? 'Subscribing...' : 'Subscribe'}
                 </button>
             </form>
-            {/* ✅ FORM END */}
 
             {message.text && (
-                <p className={`mt-4 text-center ${message.type === 'success' ? 'text-green-400' : 'text-red-400'}`}>
+                <p className={`mt-4 text-center text-sm ${message.type === 'success' ? 'text-green-400' : 'text-red-400'}`}>
                     {message.text}
                 </p>
             )}

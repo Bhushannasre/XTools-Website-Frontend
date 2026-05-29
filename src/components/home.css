@@ -1,47 +1,57 @@
- @keyframes marqueeScroll {
-                0% { transform: translateX(0%); }
-                100% { transform: translateX(-50%); }
-            }
+@keyframes marqueeScroll {
+    0%   { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+}
 
-            .marquee-inner {
-                animation: marqueeScroll 25s linear infinite;
-            }
+.marquee-inner {
+    animation: marqueeScroll 25s linear infinite;
+}
 
-            .marquee-reverse {
-                animation-direction: reverse;
-            }
+.marquee-reverse {
+    animation-direction: reverse;
+}
 
-            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800;900&display=swap');
-        * { font-family: 'Poppins', sans-serif; }
-       .box {
-  animation: slideIn 2s ease-in-out forwards;
+.box {
+    animation: slideIn 2s ease-in-out forwards;
 }
 
 @keyframes slideIn {
-  from {
-    transform: translateX(100px);
-  }
-  to {
-    transform: translateX(0);
-  }
+    from { transform: translateX(100px); }
+    to   { transform: translateX(0); }
 }
 
 .heading {
-  transform: scaleX(1);
+    transform: scaleX(1);
 }
 
 .heading.animate {
-  animation: stretch 2s ease-in-out forwards;
+    animation: stretch 2s ease-in-out forwards;
 }
 
 @keyframes stretch {
-  0% {
-    transform: scaleX(1);
-  }
-  50% {
-    transform: scaleX(1.5);
-  }
-  100% {
-    transform: scaleX(1);
-  }
+    0%   { transform: scaleX(1); }
+    50%  { transform: scaleX(1.5); }
+    100% { transform: scaleX(1); }
+}
+
+/* ── Scroll reveal ── */
+.reveal,
+.reveal-left,
+.reveal-right,
+.reveal-up {
+    opacity: 0;
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal       { transform: translateY(30px); }
+.reveal-left  { transform: translateX(-50px); }
+.reveal-right { transform: translateX(50px); }
+.reveal-up    { transform: translateY(50px); }
+
+.reveal.visible,
+.reveal-left.visible,
+.reveal-right.visible,
+.reveal-up.visible {
+    opacity: 1;
+    transform: translate(0);
 }
