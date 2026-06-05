@@ -92,7 +92,7 @@ function Navbar() {
                         </div>
                     ) : (
                         <Link className="hidden sm:block" to="/login">
-                            <button className="rainbow relative overflow-hidden px-6 py-2 text-sm font-medium text-white rounded-full bg-gray-900/80 backdrop-blur hover:scale-105 transition duration-300 active:scale-100 lg:px-8 lg:py-3">
+                            <button className="bg-gray-600 relative overflow-hidden px-6 py-2 text-sm font-medium text-white rounded-full backdrop-blur hover:scale-105 transition duration-300 active:scale-100 lg:px-8 lg:py-3">
                                 Sign In
                             </button>
                         </Link>
